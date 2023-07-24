@@ -22,9 +22,11 @@ export class App extends Component {
         <Section title="Phonebook">
           <AddContactForm onAddContact={this.onAddContact} />
         </Section>
-        <Section title="Contacts">
-          <ContactsList contacts={this.state.contacts} />
-        </Section>
+        {this.state.contacts.length !== 0 && (
+          <Section title="Contacts">
+            <ContactsList contacts={this.state.contacts} />
+          </Section>
+        )}
       </div>
     );
   }
