@@ -1,0 +1,22 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 320px;
+  margin: 24px auto 0;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(81, 81, 81);
+}
+
+.input {
+  padding: 8px 12px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
