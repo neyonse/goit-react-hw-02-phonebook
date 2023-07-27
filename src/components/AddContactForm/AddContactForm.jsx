@@ -50,6 +50,16 @@ export class AddContactForm extends Component {
 
   render() {
     const { name, number, nameInputRef, numberInputRef } = this.state;
+    const nameProperties = {
+      pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+      title:
+        "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
+    };
+    const numberProperties = {
+      pattern: '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
+      title:
+        'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+    };
 
     return (
       <form className={css.form} onSubmit={this.handleSubmit}>
@@ -63,8 +73,8 @@ export class AddContactForm extends Component {
             id="userName"
             type="text"
             name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            pattern={nameProperties.pattern}
+            title={nameProperties.title}
             required
             ref={nameInputRef}
             onChange={this.handleChange}
@@ -80,8 +90,8 @@ export class AddContactForm extends Component {
             id="userNumber"
             type="tel"
             name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            pattern={numberProperties.pattern}
+            title={numberProperties.title}
             required
             ref={numberInputRef}
             onChange={this.handleChange}
