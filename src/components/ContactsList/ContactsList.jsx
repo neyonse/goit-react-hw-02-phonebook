@@ -1,29 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import css from './ContactsList.module.css';
 import { ContactCard } from 'components/ContactCard/ContactCard';
 
-export class ContactsList extends Component {
-  onDelete = id => {
-    this.props.onDeleteContact(id);
-  };
+export const ContactsList = ({ contacts, onDeleteContact }) => {
+  return (
+    <ul className={css.list}>
+      {contacts.map(({ id, name, number }) => {
+        return (
+          <ContactCard
+            key={id}
+            id={id}
+            name={name}
+            number={number}
+            onDelete={() => onDeleteContact(id)}
+          />
+        );
+      })}
+    </ul>
+  );
+};
 
-  render() {
-    const { contacts } = this.props;
-
-    return (
-      <ul className={css.list}>
-        {contacts.map(({ id, name, number }) => {
-          return (
-            <ContactCard
-              key={id}
-              id={id}
-              name={name}
-              number={number}
-              onDelete={this.onDelete}
-            />
-          );
-        })}
-      </ul>
-    );
-  }
-}
+ContactsList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
+};

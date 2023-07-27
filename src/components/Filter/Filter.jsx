@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 import { LuSearch } from 'react-icons/lu';
 
@@ -27,3 +28,8 @@ export class Filter extends Component {
     );
   }
 }
+
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+};
