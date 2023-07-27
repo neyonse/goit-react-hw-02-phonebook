@@ -20,7 +20,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: black;
+  color: #333;
   background-color: #e7e7e7;
 }
 
@@ -38,13 +38,18 @@ ul {
 
 .container {
   padding: 0 16px;
-  max-width: 375px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 719px) {
+  .container {
+    max-width: 375px;
+  }
 }
 
 @media screen and (min-width: 720px) {
   .container {
     padding: 0 24px;
-    max-width: 720px;
     width: 720px;
   }
 }
@@ -57,5 +62,5 @@ ul {
 }
 
 section {
-  margin-top: 40px;
+  margin-top: 80px;
 }

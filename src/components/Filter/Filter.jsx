@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import css from './Filter.module.css';
+import { LuSearch } from 'react-icons/lu';
 
-export const Filter = ({ value, onChange }) => {
-  return (
-    <div className={css.filter}>
-      <label className={css.label} htmlFor="search">
-        Search
-      </label>
-      <input
-        className={css.input}
-        id="search"
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder="Search by name"
-      />
-    </div>
-  );
-};
+export class Filter extends Component {
+  onChange = e => {
+    const { value } = e.currentTarget;
+
+    this.props.onFilterChange(value);
+  };
+
+  render() {
+    return (
+      <div className={css.filter}>
+        <i className={css.searchIcon} aria-hidden="true">
+          <LuSearch />
+        </i>
+        <input
+          className={css.input}
+          id="search"
+          type="search"
+          placeholder="Search by name"
+          value={this.props.value}
+          onChange={this.onChange}
+        />
+      </div>
+    );
+  }
+}
