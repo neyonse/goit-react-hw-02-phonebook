@@ -28,9 +28,11 @@ const schema = yup.object({
 });
 
 export const AddContactForm = ({ onAddContact }) => {
-  function createNewContact(name, number) {
-    return { id: nanoid(), name: name.trim(), number: number.trim() };
-  }
+  const createNewContact = (name, number) => ({
+    id: nanoid(),
+    name: name.trim(),
+    number: number.trim(),
+  });
 
   const handleSubmit = (values, actions) => {
     const { resetForm } = actions;

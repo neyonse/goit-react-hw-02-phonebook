@@ -4,7 +4,7 @@ import css from './Filter.module.css';
 import { LuSearch } from 'react-icons/lu';
 
 export const Filter = ({ value, onFilterChange }) => {
-  const onChange = e => {
+  const handleChange = e => {
     const { value } = e.currentTarget;
 
     onFilterChange(value);
@@ -21,7 +21,7 @@ export const Filter = ({ value, onFilterChange }) => {
         type="search"
         placeholder="Search by name"
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
       />
     </div>
   );

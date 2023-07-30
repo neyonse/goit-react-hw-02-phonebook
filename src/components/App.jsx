@@ -15,7 +15,7 @@ export class App extends Component {
     filter: '',
   };
 
-  onAddContact = newContact => {
+  handleAddContact = newContact => {
     const isAdded = this.isContactAlreadyAdded(newContact);
 
     if (isAdded !== -1) {
@@ -37,7 +37,7 @@ export class App extends Component {
     );
   };
 
-  onFilterChange = filterWord => {
+  handleFilterChange = filterWord => {
     this.setState({ filter: filterWord });
   };
 
@@ -65,11 +65,11 @@ export class App extends Component {
     return (
       <>
         <Section title="Phonebook">
-          <AddContactForm onAddContact={this.onAddContact} />
+          <AddContactForm onAddContact={this.handleAddContact} />
         </Section>
         {contacts.length !== 0 && (
           <Section title="Contacts">
-            <Filter value={filter} onFilterChange={this.onFilterChange} />
+            <Filter value={filter} onFilterChange={this.handleFilterChange} />
             <ContactsList
               contacts={filteredContacts}
               onDeleteContact={this.deleteContact}
