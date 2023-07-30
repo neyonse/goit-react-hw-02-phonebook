@@ -1,109 +1,75 @@
-import React, { Component, createRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
 import { nanoid } from 'nanoid';
 import css from './AddContactForm.module.css';
 
-export class AddContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-    nameInputRef: createRef(),
-    numberInputRef: createRef(),
-  };
+const initialValues = {
+  name: '',
+  number: '',
+};
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-  };
+const schema = yup.object({
+  name: yup
+    .string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+    )
+    .required(`Name field can't be empty`),
+  number: yup
+    .string()
+    .matches(
+      /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+    )
+    .required(`Phone number field can't be empty`),
+});
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, number, nameInputRef, numberInputRef } = this.state;
-
-    if (name.trim() === '' || number.trim() === '') {
-      if (name.trim() === '') {
-        this.showAlertAndFocusInput('Name', nameInputRef);
-      } else {
-        this.showAlertAndFocusInput('Number', numberInputRef);
-      }
-      return;
-    }
-
-    const newContact = this.createNewContact(name, number);
-    this.props.onAddContact(newContact);
-    this.resetForm();
-  };
-
-  showAlertAndFocusInput = (fieldName, ref) => {
-    alert(`${fieldName} field can not be empty!`);
-    ref.current.focus();
-    ref.current.value = '';
-  };
-
-  createNewContact(name, number) {
+export const AddContactForm = ({ onAddContact }) => {
+  function createNewContact(name, number) {
     return { id: nanoid(), name: name.trim(), number: number.trim() };
   }
 
-  resetForm() {
-    this.setState({ name: '', number: '' });
-  }
+  const handleSubmit = (values, actions) => {
+    const { resetForm } = actions;
+    const name = values.name;
+    const number = values.number;
+    const newContact = createNewContact(name, number);
 
-  render() {
-    const { name, number, nameInputRef, numberInputRef } = this.state;
-    const nameProperties = {
-      pattern: "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
-      title:
-        "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
-    };
-    const numberProperties = {
-      pattern: '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
-      title:
-        'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-    };
+    onAddContact(newContact);
+    resetForm();
+  };
 
-    return (
-      <form className={css.form} onSubmit={this.handleSubmit}>
-        <div className={css.inputWrap}>
-          <label className={css.label} htmlFor="userName">
-            Name
-          </label>
-          <input
-            className={css.input}
-            value={name}
-            id="userName"
-            type="text"
-            name="name"
-            pattern={nameProperties.pattern}
-            title={nameProperties.title}
-            required
-            ref={nameInputRef}
-            onChange={this.handleChange}
-          />
-        </div>
-        <div className={css.inputWrap}>
-          <label className={css.label} htmlFor="userNumber">
-            Number
-          </label>
-          <input
-            className={css.input}
-            value={number}
-            id="userNumber"
-            type="tel"
-            name="number"
-            pattern={numberProperties.pattern}
-            title={numberProperties.title}
-            required
-            ref={numberInputRef}
-            onChange={this.handleChange}
-          />
-        </div>
-        <button className={css.submitBtn} type="submit">
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+    >
+      <Form className={css.form}>
+        <label className={css.label}>
+          Name
+          <Field className={css.input} type="text" name="name" required />
+          <ErrorMessage name="name" component="p" className={css.error} />
+        </label>
+        <label className={css.label}>
+          Number
+          <Field className={css.input} type="tel" name="number" required />
+          <ErrorMessage name="number" component="p" className={css.error} />
+        </label>
+        <button
+          className={css.submitBtn}
+          type="submit"
+          aria-label="add contact"
+        >
           Add contact
         </button>
-      </form>
-    );
-  }
-}
+      </Form>
+    </Formik>
+  );
+};
 
 AddContactForm.propTypes = {
   onAddContact: PropTypes.func.isRequired,

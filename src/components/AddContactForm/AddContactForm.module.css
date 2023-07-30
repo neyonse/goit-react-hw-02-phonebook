@@ -7,14 +7,12 @@
   margin: 24px auto 0;
 }
 
-.inputWrap {
+.label {
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: 100%;
-}
 
-.label {
   font-size: 16px;
   font-weight: 500;
   color: gray;
@@ -37,6 +35,16 @@
 
 .input:is(:hover, :focus) {
   border-color: slateblue;
+}
+
+.error {
+  margin-top: 4px;
+  text-align: center;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: crimson;
 }
 
 .submitBtn {

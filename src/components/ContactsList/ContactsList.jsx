@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactsList.module.css';
-import { ContactCard } from 'components/ContactCard/ContactCard';
+import { ContactCard } from 'components/ContactCard';
 
 export const ContactsList = ({ contacts, onDeleteContact }) => {
   return (

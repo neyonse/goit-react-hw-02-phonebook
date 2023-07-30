@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Section } from './Section/Section';
-import { AddContactForm } from './AddContactForm/AddContactForm';
-import { Filter } from './Filter/Filter';
-import { ContactsList } from './ContactsList/ContactsList';
+import { Section } from './Section';
+import { AddContactForm } from './AddContactForm';
+import { Filter } from './Filter';
+import { ContactsList } from './ContactsList';
 
 export class App extends Component {
   state = {
@@ -13,8 +13,6 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   onAddContact = newContact => {
