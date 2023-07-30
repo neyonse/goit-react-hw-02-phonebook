@@ -8,7 +8,7 @@ export const ContactCard = ({ id, name, number, onDelete }) => {
       <p className={css.contactDetails}>
         {name}: <span className={css.contactNumber}>{number}</span>
       </p>
-      <button className={css.deleteBtn} onClick={() => onDelete(id)}>
+      <button className={css.deleteBtn} onClick={onDelete}>
         Delete
       </button>
     </li>
